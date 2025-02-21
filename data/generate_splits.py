@@ -1,7 +1,7 @@
 from scipy.io import loadmat
 import pandas as pd
 
-x = loadmat('golfDB.mat')
+x = loadmat('data/golfDB.mat')
 l = list(x['golfDB'][0])
 d = dict()
 for idx, k in enumerate(l):
@@ -22,18 +22,18 @@ df['bbox'] = df['bbox'].apply(lambda x: x[0])
 df['split'] = df['split'].apply(lambda x: x[0][0])
 
 df.index = df.index.astype(int)
-df.to_pickle('golfDB.pkl')
+df.to_pickle('data/golfDB.pkl')
 
 for i in range(1, 5):
     val_split = df.loc[df['split'] == i]
     val_split = val_split.reset_index()
     val_split = val_split.drop(columns=['index'])
-    val_split.to_pickle("val_split_{:1d}.pkl".format(i))
+    val_split.to_pickle("data/val_split_{:1d}.pkl".format(i))
 
     train_split = df.loc[df['split'] != i]
     train_split = train_split.reset_index()
     train_split = train_split.drop(columns=['index'])
-    train_split.to_pickle("train_split_{:1d}.pkl".format(i))
+    train_split.to_pickle("data/train_split_{:1d}.pkl".format(i))
 
 print("Number of unique YouTube videos: {:3d}".format(len(df['youtube_id'].unique())))
 print("Number of annotations: {:3d}".format(len(df.id)))
