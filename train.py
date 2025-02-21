@@ -1,3 +1,4 @@
+import tqdm
 from dataloader import GolfDB, Normalize, ToTensor
 from model import EventDetector
 from util import *
@@ -52,7 +53,9 @@ if __name__ == '__main__':
     if not os.path.exists('models'):
         os.mkdir('models')
 
+
     i = 0
+    pbar = tqdm(total=100)
     while i < iterations:
         for sample in data_loader:
             images, labels = sample['images'].cuda(), sample['labels'].cuda()
@@ -68,8 +71,10 @@ if __name__ == '__main__':
             if i % it_save == 0:
                 torch.save({'optimizer_state_dict': optimizer.state_dict(),
                             'model_state_dict': model.state_dict()}, 'models/swingnet_{}.pth.tar'.format(i))
+                pbar.update(1)
             if i == iterations:
                 break
+    pbar.close()
 
 
 

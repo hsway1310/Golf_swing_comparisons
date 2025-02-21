@@ -2,9 +2,9 @@ import os.path as osp
 import cv2
 import pandas as pd
 import numpy as np
-import torch
-from torch.utils.data import Dataset, DataLoader
-from torchvision import transforms
+import torch # type: ignore
+from torch.utils.data import Dataset, DataLoader # type: ignore
+from torchvision import transforms # type: ignore
 
 
 class GolfDB(Dataset):
@@ -93,7 +93,7 @@ if __name__ == '__main__':
                      transform=transforms.Compose([ToTensor(), norm]),
                      train=False)
 
-    data_loader = DataLoader(dataset, batch_size=1, shuffle=False, num_workers=6, drop_last=False)
+    data_loader = DataLoader(dataset, batch_size=1, shuffle=False, num_workers=2, drop_last=False) #change num_workers to 2
 
     for i, sample in enumerate(data_loader):
         images, labels = sample['images'], sample['labels']

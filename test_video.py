@@ -80,11 +80,13 @@ if __name__ == '__main__':
                           dropout=False)
 
     try:
-        save_dict = torch.load('models/swingnet_1800.pth.tar')
+        # save_dict = torch.load('models/swingnet_1800.pth.tar')
+        save_dict = torch.load("/Users/haaris/Desktop/python/golfdb/models/swingnet_1800.pth.tar", map_location=torch.device('cpu'))
     except:
         print("Model weights not found. Download model weights and place in 'models' folder. See README for instructions")
 
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    # device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    device = torch.device('cpu')
     print('Using device:', device)
     model.load_state_dict(save_dict['model_state_dict'])
     model.to(device)
@@ -101,7 +103,8 @@ if __name__ == '__main__':
                 image_batch = images[:, batch * seq_length:, :, :, :]
             else:
                 image_batch = images[:, batch * seq_length:(batch + 1) * seq_length, :, :, :]
-            logits = model(image_batch.cuda())
+            # logits = model(image_batch.cuda())
+            logits = model(image_batch.to("cpu"))
             if batch == 0:
                 probs = F.softmax(logits.data, dim=1).cpu().numpy()
             else:
@@ -124,5 +127,3 @@ if __name__ == '__main__':
         cv2.imshow(event_names[i], img)
         cv2.waitKey(0)
         cv2.destroyAllWindows()
-
-
