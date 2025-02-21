@@ -4,6 +4,8 @@
 
 Golf Swing Analyser is a tool that processes a video of a golf swing, identifies key swing positions, and compares them to professional golf swings. The tool overlays MediaPipe pose landmarks to assist with comparisons and analysis.
 
+The full database of professional golf swings can be seen [here](https://drive.google.com/file/d/1uBwRxFxW04EqG87VCoX3l6vXeV5T5JYJ/view). Download, unzip and add the `videos_160` folder to `data/`.
+
 ```
 @InProceedings{McNally_2019_CVPR_Workshops,
 author = {McNally, William and Vats, Kanav and Pinto, Tyler and Dulhanty, Chris and McPhee, John and Wong, Alexander},
@@ -30,13 +32,13 @@ Detects and extracts frames corresponding to key positions in a golf swing:
 
 ### How to Use Frame Identification
 
-- First, download the model weights from this Google Drive link:([model weights](https://drive.google.com/file/d/1uBwRxFxW04EqG87VCoX3l6vXeV5T5JYJ/view?usp=sharing))
+- First, download the model weights from this Google Drive link:([model weights](https://drive.google.com/file/d/1MBIDwHSM8OKRbxS8YfyRLnUBAdt0nupW/view))
 
 - Place the downloaded weights in the `models/` folder.
 
 - Upload your swing video (croped and trimmed to show only your swing) to the `swings/`  folder.
 
-- Run the following command (reference your own .mp4 file): `python3 test_video.py -p ama/HS_bali.mp4`
+- Run the following command (reference your own .mp4 file): `python3 test_video.py -p swings/HS_bali.mp4`
 
 This will output 8 frames from the video, showing the different stages of the golf swing. Press any key to show the next frame.
 
