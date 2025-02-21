@@ -40,11 +40,12 @@ Detects and extracts frames corresponding to key positions in a golf swing:
 
 This will output 8 frames from the video, showing the different stages of the golf swing. Press any key to show the next frame.
 
-### 2. Professional Swing Comparison (coming soon): 
+### 2. Pose Landmark Overlay (coming soon): 
+Uses MediaPipe API to overlay pose landmarks, aiding in the comparison process.
+
+### 3. Professional Swing Comparison (coming soon): 
 Matches each extracted frame to the closest corresponding frame from professional golf swings.
 
-### 3. Pose Landmark Overlay (coming soon): 
-Uses MediaPipe API to overlay pose landmarks, aiding in the comparison process.
 
 ## Technologies Used
 
