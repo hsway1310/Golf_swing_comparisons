@@ -1,4 +1,4 @@
-# Golf Swing Analyser
+# Golf Swing Analyser - Haaris sohoye
 
 ## Overview
 
