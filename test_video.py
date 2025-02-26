@@ -7,6 +7,7 @@ from eval import ToTensor, Normalize
 from model import EventDetector
 import numpy as np
 import torch.nn.functional as F
+import os
 
 event_names = {
     0: "Address",
@@ -93,6 +94,7 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
     seq_length = args.seq_length
+    device_ = f"{args.device}"
 
     print("Preparing video: {}".format(args.path))
 
@@ -112,13 +114,13 @@ if __name__ == "__main__":
         lstm_hidden=256,
         bidirectional=True,
         dropout=False,
-        device=args.device
+        device=args.device,
     )
 
     try:
         save_dict = torch.load(
             "models/swingnet_1800.pth.tar", map_location=torch.device(args.device)
-            )
+        )
     except:
         print(
             "Model weights not found. Download model weights and place in 'models' folder. See README for instructions"
@@ -146,7 +148,9 @@ if __name__ == "__main__":
                     :, batch * seq_length : (batch + 1) * seq_length, :, :, :
                 ]
             logits = (
-                model(image_batch.cuda()) if args.device == "GPU" else model(image_batch.to("cpu"))
+                model(image_batch.cuda())
+                if args.device == "GPU"
+                else model(image_batch.to("cpu"))
             )
             if batch == 0:
                 probs = F.softmax(logits.data, dim=1).cpu().numpy()
@@ -162,6 +166,12 @@ if __name__ == "__main__":
     for i, e in enumerate(events):
         confidence.append(probs[e, i])
     print("Condifence: {}".format([np.round(c, 3) for c in confidence]))
+    
+    swing_name = args.path.split(".")[0].split("/")[-1]
+    path = f"{swing_name.lower()}/"
+    if not os.path.exists(path):
+        os.mkdir(path)
+    os.chdir(path=path) 
 
     for i, e in enumerate(events):
         cap.set(cv2.CAP_PROP_POS_FRAMES, e)
@@ -174,6 +184,9 @@ if __name__ == "__main__":
             0.75,
             (0, 0, 255),
         )
-        cv2.imshow(event_names[i], img)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
+        # cv2.imwrite(f"capture/{args.path.split('.')[0]}/{event_names[i]}.jpeg", img)
+   
+        cv2.imwrite(f"{event_names[i]}.jpeg", img)
+        # cv2.imshow(event_names[i], img)
+        # cv2.waitKey(0)
+        # cv2.destroyAllWindows()
