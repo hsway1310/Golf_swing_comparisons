@@ -32,7 +32,7 @@ Detects and extracts frames corresponding to key positions in a golf swing:
 
 ### How to Use Frame Identification
 
-- First, download the model weights from this Google Drive link:([model weights](https://drive.google.com/file/d/1MBIDwHSM8OKRbxS8YfyRLnUBAdt0nupW/view))
+- First, download the model weights from this Google Drive link: [model weights](https://drive.google.com/file/d/1MBIDwHSM8OKRbxS8YfyRLnUBAdt0nupW/view)
 
 - Place the downloaded weights in the `models/` folder.
 
