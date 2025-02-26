@@ -38,7 +38,7 @@ Detects and extracts frames corresponding to key positions in a golf swing:
 
 - Upload your swing video (croped and trimmed to show only your swing) to the `swings/`  folder.
 
-- Run the following command (reference your own .mp4 file): `python3 test_video.py -p swings/HS_bali.mp4`
+- Run the following command (reference your own .mp4 file): `python3 test_video.py -p swings/HS_bali.mp4 -d cpu`
 
 This will output 8 frames from the video, showing the different stages of the golf swing. Press any key to show the next frame.
 
@@ -64,5 +64,3 @@ Matches each extracted frame to the closest corresponding frame from professiona
 Ensure you have Python installed (>= 3.7). Then install dependencies:
 
 `pip install -r requirements.txt`
-
-Select the device you wish to use in the `.env` file with `DEVICE=CPU` or `DEVICE=GPU`.
