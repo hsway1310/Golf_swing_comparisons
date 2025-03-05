@@ -8,6 +8,8 @@ from model import EventDetector
 import numpy as np
 import torch.nn.functional as F
 import os
+import mediapipe as mp
+
 
 event_names = {
     0: "Address",
@@ -26,6 +28,7 @@ class SampleVideo(Dataset):
         self.path = path
         self.input_size = input_size
         self.transform = transform
+        self.mp_pose = mp.solutions.pose.Pose()
 
     def __len__(self):
         return 1
@@ -43,10 +46,12 @@ class SampleVideo(Dataset):
         top, bottom = delta_h // 2, delta_h - (delta_h // 2)
         left, right = delta_w // 2, delta_w - (delta_w // 2)
 
-        # preprocess and return frames
         images = []
         for pos in range(int(cap.get(cv2.CAP_PROP_FRAME_COUNT))):
-            _, img = cap.read()
+            ret, img = cap.read()
+            if not ret:
+                continue
+
             resized = cv2.resize(img, (new_size[1], new_size[0]))
             b_img = cv2.copyMakeBorder(
                 resized,
@@ -56,15 +61,27 @@ class SampleVideo(Dataset):
                 right,
                 cv2.BORDER_CONSTANT,
                 value=[0.406 * 255, 0.456 * 255, 0.485 * 255],
-            )  # ImageNet means (BGR)
+            )
 
+            # Convert to RGB for MediaPipe
             b_img_rgb = cv2.cvtColor(b_img, cv2.COLOR_BGR2RGB)
+            results = self.mp_pose.process(b_img_rgb)
+
+            # Overlay pose landmarks if detected
+            if results.pose_landmarks:
+                mp.solutions.drawing_utils.draw_landmarks(
+                    b_img, results.pose_landmarks, mp.solutions.pose.POSE_CONNECTIONS
+                )
+
             images.append(b_img_rgb)
+
         cap.release()
-        labels = np.zeros(len(images))  # only for compatibility with transforms
+        labels = np.zeros(len(images))
         sample = {"images": np.asarray(images), "labels": np.asarray(labels)}
+
         if self.transform:
             sample = self.transform(sample)
+
         return sample
 
 
@@ -81,7 +98,7 @@ if __name__ == "__main__":
         "-d",
         "--device",
         choices=["cpu", "gpu"],
-        help="Device to set your tensor to [cpu (default) or cpu]",
+        help="Device to set your tensor to [cpu (default) or gpu]",
         default="cpu",
         required=True,
     )
@@ -95,6 +112,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
     seq_length = args.seq_length
     device_ = f"{args.device}"
+    path = args.path
 
     print("Preparing video: {}".format(args.path))
 
@@ -126,8 +144,6 @@ if __name__ == "__main__":
             "Model weights not found. Download model weights and place in 'models' folder. See README for instructions"
         )
 
-    # device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    # device = torch.device('cpu')
     device = torch.device(args.device)
     print("Using device:", device)
     model.load_state_dict(save_dict["model_state_dict"])
@@ -138,7 +154,6 @@ if __name__ == "__main__":
     print("Testing...")
     for sample in dl:
         images = sample["images"]
-        # full samples do not fit into GPU memory so evaluate sample in 'seq_length' batches
         batch = 0
         while batch * seq_length < images.shape[1]:
             if (batch + 1) * seq_length > images.shape[1]:
@@ -149,7 +164,7 @@ if __name__ == "__main__":
                 ]
             logits = (
                 model(image_batch.cuda())
-                if args.device == "GPU"
+                if args.device == "gpu"
                 else model(image_batch.to("cpu"))
             )
             if batch == 0:
@@ -162,16 +177,8 @@ if __name__ == "__main__":
     print("Predicted event frames: {}".format(events))
     cap = cv2.VideoCapture(args.path)
 
-    confidence = []
-    for i, e in enumerate(events):
-        confidence.append(probs[e, i])
-    print("Condifence: {}".format([np.round(c, 3) for c in confidence]))
-    
-    swing_name = args.path.split(".")[0].split("/")[-1]
-    path = f"{swing_name.lower()}/"
-    if not os.path.exists(path):
-        os.mkdir(path)
-    os.chdir(path=path) 
+    confidence = [np.round(probs[e, i], 3) for i, e in enumerate(events)]
+    print("Confidence: {}".format(confidence))
 
     for i, e in enumerate(events):
         cap.set(cv2.CAP_PROP_POS_FRAMES, e)
@@ -184,9 +191,19 @@ if __name__ == "__main__":
             0.75,
             (0, 0, 255),
         )
-        # cv2.imwrite(f"capture/{args.path.split('.')[0]}/{event_names[i]}.jpeg", img)
-   
-        cv2.imwrite(f"{event_names[i]}.jpeg", img)
-        # cv2.imshow(event_names[i], img)
-        # cv2.waitKey(0)
-        # cv2.destroyAllWindows()
+
+        results = mp.solutions.pose.Pose().process(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
+        if results.pose_landmarks:
+            mp.solutions.drawing_utils.draw_landmarks(
+                img, results.pose_landmarks, mp.solutions.pose.POSE_CONNECTIONS
+            )
+
+        frame_path_folder = path.split("/")[-1].split(".")[0]
+
+        if not os.path.exists(frame_path_folder):
+            os.makedirs(f"{frame_path_folder}/frames/")
+        cv2.imwrite(f"{frame_path_folder}/frames/{event_names[i]}.jpg", img)
+
+        cv2.imshow(event_names[i], img)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
