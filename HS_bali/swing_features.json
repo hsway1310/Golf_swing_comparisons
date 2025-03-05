@@ -1,0 +1,66 @@
+{
+    "Address": {
+        "sholder_tilt": 108.42869066561038,
+        "left_elbow_angle": 93.38889351582019,
+        "right_elbow_angle": 171.66260591992673,
+        "left_wrist_angle": 172.701308104417,
+        "right_wrist_angle": 56.765948201881415,
+        "hip_rotation": 53.145502427059206
+    },
+    "Toe-up": {
+        "sholder_tilt": 110.21438742526696,
+        "left_elbow_angle": 11.369806500418893,
+        "right_elbow_angle": 17.814635951678145,
+        "left_wrist_angle": 177.44534047418503,
+        "right_wrist_angle": 129.41558967775714,
+        "hip_rotation": 53.69154069758117
+    },
+    "Mid-backswing (arm parallel)": {
+        "sholder_tilt": 109.71425836257086,
+        "left_elbow_angle": 153.66010861707895,
+        "right_elbow_angle": 120.79637413112285,
+        "left_wrist_angle": 159.3051596293874,
+        "right_wrist_angle": 165.82887306087633,
+        "hip_rotation": 58.330736341069525
+    },
+    "Top": {
+        "sholder_tilt": 97.01371926305099,
+        "left_elbow_angle": 111.05011483659533,
+        "right_elbow_angle": 95.4304772143047,
+        "left_wrist_angle": 39.499413561309474,
+        "right_wrist_angle": 166.73709575435154,
+        "hip_rotation": 57.11726157328545
+    },
+    "Mid-downswing (arm parallel)": {
+        "sholder_tilt": 108.24573339162717,
+        "left_elbow_angle": 134.08160335058628,
+        "right_elbow_angle": 126.88110859769469,
+        "left_wrist_angle": 168.40201259431223,
+        "right_wrist_angle": 136.3719752854675,
+        "hip_rotation": 45.03455586493089
+    },
+    "Impact": {
+        "sholder_tilt": 50.169082657797354,
+        "left_elbow_angle": 149.96375687141656,
+        "right_elbow_angle": 134.6669700820686,
+        "left_wrist_angle": 141.23961484468592,
+        "right_wrist_angle": 165.72602155846837,
+        "hip_rotation": 10.787811408260584
+    },
+    "Mid-follow-through (shaft parallel)": {
+        "sholder_tilt": 117.18273396258606,
+        "left_elbow_angle": 150.58963586366994,
+        "right_elbow_angle": 51.541130508160904,
+        "left_wrist_angle": 172.79105652136354,
+        "right_wrist_angle": 145.5074902689057,
+        "hip_rotation": 38.07265797344992
+    },
+    "Finish": {
+        "sholder_tilt": 122.47279764618055,
+        "left_elbow_angle": 75.4742013246162,
+        "right_elbow_angle": 82.01762759527013,
+        "left_wrist_angle": 136.21445642783274,
+        "right_wrist_angle": 168.22179951118434,
+        "hip_rotation": 48.66102823522568
+    }
+}
