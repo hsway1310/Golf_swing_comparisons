@@ -5,7 +5,9 @@
         "right_elbow_angle": 171.66260591992673,
         "left_wrist_angle": 172.701308104417,
         "right_wrist_angle": 56.765948201881415,
-        "hip_rotation": 53.145502427059206
+        "hip_rotation": 53.145502427059206,
+        "frame_number": 97,
+        "time_seconds": 1.6166666666666667
     },
     "Toe-up": {
         "sholder_tilt": 110.21438742526696,
@@ -13,7 +15,9 @@
         "right_elbow_angle": 17.814635951678145,
         "left_wrist_angle": 177.44534047418503,
         "right_wrist_angle": 129.41558967775714,
-        "hip_rotation": 53.69154069758117
+        "hip_rotation": 53.69154069758117,
+        "frame_number": 132,
+        "time_seconds": 2.2
     },
     "Mid-backswing (arm parallel)": {
         "sholder_tilt": 109.71425836257086,
@@ -21,7 +25,9 @@
         "right_elbow_angle": 120.79637413112285,
         "left_wrist_angle": 159.3051596293874,
         "right_wrist_angle": 165.82887306087633,
-        "hip_rotation": 58.330736341069525
+        "hip_rotation": 58.330736341069525,
+        "frame_number": 143,
+        "time_seconds": 2.3833333333333333
     },
     "Top": {
         "sholder_tilt": 97.01371926305099,
@@ -29,7 +35,9 @@
         "right_elbow_angle": 95.4304772143047,
         "left_wrist_angle": 39.499413561309474,
         "right_wrist_angle": 166.73709575435154,
-        "hip_rotation": 57.11726157328545
+        "hip_rotation": 57.11726157328545,
+        "frame_number": 156,
+        "time_seconds": 2.6
     },
     "Mid-downswing (arm parallel)": {
         "sholder_tilt": 108.24573339162717,
@@ -37,7 +45,9 @@
         "right_elbow_angle": 126.88110859769469,
         "left_wrist_angle": 168.40201259431223,
         "right_wrist_angle": 136.3719752854675,
-        "hip_rotation": 45.03455586493089
+        "hip_rotation": 45.03455586493089,
+        "frame_number": 165,
+        "time_seconds": 2.75
     },
     "Impact": {
         "sholder_tilt": 50.169082657797354,
@@ -45,7 +55,9 @@
         "right_elbow_angle": 134.6669700820686,
         "left_wrist_angle": 141.23961484468592,
         "right_wrist_angle": 165.72602155846837,
-        "hip_rotation": 10.787811408260584
+        "hip_rotation": 10.787811408260584,
+        "frame_number": 172,
+        "time_seconds": 2.8666666666666667
     },
     "Mid-follow-through (shaft parallel)": {
         "sholder_tilt": 117.18273396258606,
@@ -53,7 +65,9 @@
         "right_elbow_angle": 51.541130508160904,
         "left_wrist_angle": 172.79105652136354,
         "right_wrist_angle": 145.5074902689057,
-        "hip_rotation": 38.07265797344992
+        "hip_rotation": 38.07265797344992,
+        "frame_number": 176,
+        "time_seconds": 2.933333333333333
     },
     "Finish": {
         "sholder_tilt": 122.47279764618055,
@@ -61,6 +75,13 @@
         "right_elbow_angle": 82.01762759527013,
         "left_wrist_angle": 136.21445642783274,
         "right_wrist_angle": 168.22179951118434,
-        "hip_rotation": 48.66102823522568
+        "hip_rotation": 48.66102823522568,
+        "frame_number": 200,
+        "time_seconds": 3.3333333333333335
+    },
+    "Tempo": {
+        "backswing_time": 0.98,
+        "downswing_time": 0.27,
+        "tempo": 3.69
     }
 }

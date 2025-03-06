@@ -6,6 +6,7 @@ from torchvision import transforms
 from eval import ToTensor, Normalize
 from model import EventDetector
 import numpy as np
+import pandas as pd
 import torch.nn.functional as F
 import os
 import mediapipe as mp
@@ -99,8 +100,7 @@ if __name__ == "__main__":
         "--device",
         choices=["cpu", "gpu"],
         help="Device to set your tensor to [cpu (default) or gpu]",
-        default="cpu",
-        required=True,
+        default="cpu"
     )
     parser.add_argument(
         "-s",
@@ -203,6 +203,8 @@ if __name__ == "__main__":
         if not os.path.exists(frame_path_folder):
             os.makedirs(f"{frame_path_folder}/frames/")
         cv2.imwrite(f"{frame_path_folder}/frames/{event_names[i]}.jpg", img)
+        
+        np.savetxt(f"{frame_path_folder}/frames/event_frames.csv", events, delimiter=",", format="%s")
 
         cv2.imshow(event_names[i], img)
         cv2.waitKey(0)
