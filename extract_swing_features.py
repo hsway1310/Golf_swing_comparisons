@@ -152,6 +152,7 @@ def extract_swing_features(frame_path_folder, frame_timestamps, fps):
         and "Top" in event_times
         and "Impact" in event_times
     ):
+        print("Calculating swing Tempo")
         backswing_time = event_times["Top"] - event_times["Address"]
         downswing_time = event_times["Impact"] - event_times["Top"]
 

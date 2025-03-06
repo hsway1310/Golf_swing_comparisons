@@ -204,7 +204,7 @@ if __name__ == "__main__":
             os.makedirs(f"{frame_path_folder}/frames/")
         cv2.imwrite(f"{frame_path_folder}/frames/{event_names[i]}.jpg", img)
         
-        np.savetxt(f"{frame_path_folder}/frames/event_frames.csv", events, delimiter=",", format="%s")
+        np.savetxt(f"{frame_path_folder}/frames/event_frames.csv", events, delimiter=",", fmt="%s")
 
         cv2.imshow(event_names[i], img)
         cv2.waitKey(0)
