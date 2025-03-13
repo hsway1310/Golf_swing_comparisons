@@ -22,19 +22,20 @@ df['bbox'] = df['bbox'].apply(lambda x: x[0])
 df['split'] = df['split'].apply(lambda x: x[0][0])
 
 df.index = df.index.astype(int)
-# df[1:100].to_csv('data/golfDb.csv')
-df.to_pickle('data/golfDB.pkl')
+df.drop(["youtube_id","bbox", "split"], axis=1, inplace=True)
+df.to_csv('data/golfDb.csv')
+# df.to_pickle('data/golfDB.pkl')
 
-for i in range(1, 5):
-    val_split = df.loc[df['split'] == i]
-    val_split = val_split.reset_index()
-    val_split = val_split.drop(columns=['index'])
-    val_split.to_pickle("data/val_split_{:1d}.pkl".format(i))
+# for i in range(1, 5):
+#     val_split = df.loc[df['split'] == i]
+#     val_split = val_split.reset_index()
+#     val_split = val_split.drop(columns=['index'])
+#     val_split.to_pickle("data/val_split_{:1d}.pkl".format(i))
 
-    train_split = df.loc[df['split'] != i]
-    train_split = train_split.reset_index()
-    train_split = train_split.drop(columns=['index'])
-    train_split.to_pickle("data/train_split_{:1d}.pkl".format(i))
+#     train_split = df.loc[df['split'] != i]
+#     train_split = train_split.reset_index()
+#     train_split = train_split.drop(columns=['index'])
+#     train_split.to_pickle("data/train_split_{:1d}.pkl".format(i))
 
-print("Number of unique YouTube videos: {:3d}".format(len(df['youtube_id'].unique())))
-print("Number of annotations: {:3d}".format(len(df.id)))
+# print("Number of unique YouTube videos: {:3d}".format(len(df['youtube_id'].unique())))
+# print("Number of annotations: {:3d}".format(len(df.id)))

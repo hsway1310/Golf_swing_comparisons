@@ -1,0 +1,88 @@
+{
+    "golf_swing_id": "AM_sawgrass/raw_frames",
+    "Address": {
+        "sholder_tilt": 104.05649759063017,
+        "left_elbow_angle": 133.32108356136308,
+        "right_elbow_angle": 67.96192068305271,
+        "left_wrist_angle": 170.87752527624204,
+        "right_wrist_angle": 165.05200990719342,
+        "hip_rotation": 67.15127783462606,
+        "frame_number": 74,
+        "time_seconds": 1.2333333333333334
+    },
+    "Toe-up": {
+        "sholder_tilt": 104.91811263185765,
+        "left_elbow_angle": 135.2965725475896,
+        "right_elbow_angle": 51.118923181915136,
+        "left_wrist_angle": 158.646966317716,
+        "right_wrist_angle": 136.28963646198966,
+        "hip_rotation": 68.29691675670203,
+        "frame_number": 86,
+        "time_seconds": 1.4333333333333333
+    },
+    "Mid-backswing (arm parallel)": {
+        "sholder_tilt": 105.75271345903737,
+        "left_elbow_angle": 179.7380875131548,
+        "right_elbow_angle": 117.58099172473744,
+        "left_wrist_angle": 175.55684615966896,
+        "right_wrist_angle": 170.40354131464602,
+        "hip_rotation": 64.91176803389907,
+        "frame_number": 98,
+        "time_seconds": 1.6333333333333333
+    },
+    "Top": {
+        "sholder_tilt": 103.3322536667776,
+        "left_elbow_angle": 86.24932859938004,
+        "right_elbow_angle": 0.10672046799475032,
+        "left_wrist_angle": 154.43229349978856,
+        "right_wrist_angle": 174.66305691869417,
+        "hip_rotation": 108.12833980291305,
+        "frame_number": 114,
+        "time_seconds": 1.9
+    },
+    "Mid-downswing (arm parallel)": {
+        "sholder_tilt": 130.16172581365794,
+        "left_elbow_angle": 160.06658122087555,
+        "right_elbow_angle": 136.13641693196897,
+        "left_wrist_angle": 161.7615882029101,
+        "right_wrist_angle": 167.908706035425,
+        "hip_rotation": 21.624475830106185,
+        "frame_number": 132,
+        "time_seconds": 2.2
+    },
+    "Impact": {
+        "sholder_tilt": 168.05277387175582,
+        "left_elbow_angle": 149.79173100187623,
+        "right_elbow_angle": 119.57717162976107,
+        "left_wrist_angle": 177.62097107564426,
+        "right_wrist_angle": 176.68614511975673,
+        "hip_rotation": 30.715041403189133,
+        "frame_number": 143,
+        "time_seconds": 2.3833333333333333
+    },
+    "Mid-follow-through (shaft parallel)": {
+        "sholder_tilt": 114.61843670698524,
+        "left_elbow_angle": 163.99669280538322,
+        "right_elbow_angle": 134.2459844409822,
+        "left_wrist_angle": 152.6088638677822,
+        "right_wrist_angle": 154.31278267974758,
+        "hip_rotation": 63.098772870912825,
+        "frame_number": 151,
+        "time_seconds": 2.5166666666666666
+    },
+    "Finish": {
+        "sholder_tilt": 74.23381108112068,
+        "left_elbow_angle": 54.13263067294665,
+        "right_elbow_angle": 117.98404173875662,
+        "left_wrist_angle": 167.1537399036353,
+        "right_wrist_angle": 128.64163824751782,
+        "hip_rotation": 113.36814103639557,
+        "frame_number": 236,
+        "time_seconds": 3.933333333333333
+    },
+    "Tempo": {
+        "backswing_time": 0.67,
+        "downswing_time": 0.48,
+        "tempo": 1.38
+    }
+}

@@ -4,7 +4,7 @@ import cv2
 from multiprocessing import Pool
 import numpy as np
 
-df = pd.read_pickle('golfDB.pkl')
+df = pd.read_pickle('data/golfDB.pkl')
 yt_video_dir = '../../database/videos/'
 
 
@@ -54,7 +54,7 @@ def preprocess_videos(anno_id, dim=160):
 
 
 if __name__ == '__main__':
-    path = 'videos_{}/'.format(160)
+    path = 'data/videos_{}/'.format(160)
     if not os.path.exists(path):
         os.mkdir(path)
     preprocess_videos(df.id[1])

@@ -3,8 +3,8 @@ import cv2
 import torch
 from torch.utils.data import Dataset, DataLoader
 from torchvision import transforms
-from eval import ToTensor, Normalize
-from model import EventDetector
+from script_files.eval import ToTensor, Normalize
+from script_files.model import EventDetector
 import numpy as np
 import pandas as pd
 import torch.nn.functional as F
@@ -94,6 +94,12 @@ if __name__ == "__main__":
         help="Path to video that you want to test",
         default="test_video.mp4",
         required=True,
+    )
+    parser.add_argument(
+        "-f",
+        "--folder",
+        help="Folder name to store frames",
+        default="raw_frames"
     )
     parser.add_argument(
         "-d",
@@ -191,20 +197,25 @@ if __name__ == "__main__":
             0.75,
             (0, 0, 255),
         )
+        
+        frame_type = "overlayed_frames" if args.folder[0].lower() == "o" else "raw_frames"
 
-        results = mp.solutions.pose.Pose().process(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
-        if results.pose_landmarks:
-            mp.solutions.drawing_utils.draw_landmarks(
-                img, results.pose_landmarks, mp.solutions.pose.POSE_CONNECTIONS
-            )
+        if frame_type=="overlayed_frames":
+            results = mp.solutions.pose.Pose().process(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
+            if results.pose_landmarks:
+                mp.solutions.drawing_utils.draw_landmarks(
+                    img, results.pose_landmarks, mp.solutions.pose.POSE_CONNECTIONS
+                )
 
         frame_path_folder = path.split("/")[-1].split(".")[0]
 
-        if not os.path.exists(frame_path_folder):
-            os.makedirs(f"{frame_path_folder}/frames/")
-        cv2.imwrite(f"{frame_path_folder}/frames/{event_names[i]}.jpg", img)
+        dump_file = f"processed_swings/{frame_path_folder}/{frame_type}"
+
+        if not os.path.exists(dump_file):
+            os.makedirs(dump_file)
+        cv2.imwrite(f"{dump_file}/{event_names[i]}.jpg", img)
         
-        np.savetxt(f"{frame_path_folder}/frames/event_frames.csv", events, delimiter=",", fmt="%s")
+        np.savetxt(f"{dump_file}/event_frames.csv", events, delimiter=",", fmt="%s")
 
         cv2.imshow(event_names[i], img)
         cv2.waitKey(0)
