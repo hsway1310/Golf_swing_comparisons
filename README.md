@@ -52,7 +52,25 @@ After running the above, you can now run `extract_swing_features.py` to return t
 6. hip rotation (Hip turn)
 7. Tempo (ratio between backswing time and downswing time -- a typical tour pro has a tempo ~3)
 
-### 2. Pose Landmark Overlay (coming soon): 
+### 2. Pose Landmark Overlay: 
+This script processes a golf swing video using MediaPipe's Pose detection model, overlays the detected pose landmarks, and saves the processed video.
+
+### Usage
+
+Run the script from the terminal by providing the video filename as an argument:
+
+`python pose_detection.py <VIDEO_FILE>`
+
+### Example
+
+`python pose_detection.py AM_sawgrass.mp4`
+
+### Input & Output
+
+Input Video: The script looks for the input video inside the `amateur_swings/` directory.
+
+Output Video: The processed video with pose overlays is saved inside `processed_swings/<swing_id>/`.
+
 
 
 
