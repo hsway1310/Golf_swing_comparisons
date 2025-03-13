@@ -34,16 +34,13 @@ Detects and extracts frames corresponding to key positions in a golf swing:
 
 - First, download the model weights from this Google Drive link: [model weights](https://drive.google.com/file/d/1MBIDwHSM8OKRbxS8YfyRLnUBAdt0nupW/view)
 
-- Place the downloaded weights in the `models/` folder.
+- Place the downloaded weights in the `models/` folder (if it doesn't already exist).
 
-- Upload your swing video (croped and trimmed to show only your swing) to the `swings/`  folder.
+- Upload your swing video (croped and trimmed to show only your swing) to the `amateur_swings/`  folder.
 
-- Run the following command (reference your own .mp4 file): `python3 test_video.py -p swings/HS_bali.mp4 -d cpu`
+- Run the following command (reference your own .mp4 file): `python3 test_video.py -p swings/HS_bali.mp4 -f overlayed` (`-f overlayed` to save the overlayed poselandmarks frames or `-f raw` to save the raw swing frames)
 
 This will output 8 frames from the video, showing the different stages of the golf swing. Press any key to show the next frame.
-
-### 2. Pose Landmark Overlay (coming soon): 
-Uses MediaPipe API to overlay pose landmarks, aiding in the comparison process.
 
 After running the above, you can now run `extract_swing_features.py` to return the calculated angles at each stage of your swing:
 
@@ -53,6 +50,11 @@ After running the above, you can now run `extract_swing_features.py` to return t
 4. left wrist angle (Left wrist hinge)
 5. right wrist angle (Right wrist hinge)
 6. hip rotation (Hip turn)
+7. Tempo (ratio between backswing time and downswing time -- a typical tour pro has a tempo ~3)
+
+### 2. Pose Landmark Overlay (coming soon): 
+
+
 
 ### 3. Professional Swing Comparison (coming soon): 
 Matches each extracted frame to the closest corresponding frame from professional golf swings.
