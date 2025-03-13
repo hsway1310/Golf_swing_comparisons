@@ -30,7 +30,7 @@ Detects and extracts frames corresponding to key positions in a golf swing:
 7. Mid-follow-through (shaft parallel)
 8. Finish
 
-### How to Use Frame Identification
+#### How to Use Frame Identification
 
 - First, download the model weights from this Google Drive link: [model weights](https://drive.google.com/file/d/1MBIDwHSM8OKRbxS8YfyRLnUBAdt0nupW/view)
 
@@ -55,17 +55,17 @@ After running the above, you can now run `extract_swing_features.py` to return t
 ### 2. Pose Landmark Overlay: 
 This script processes a golf swing video using MediaPipe's Pose detection model, overlays the detected pose landmarks, and saves the processed video.
 
-### Usage
+#### Usage
 
 Run the script from the terminal by providing the video filename as an argument:
 
 `python pose_detection.py <VIDEO_FILE>`
 
-### Example
+#### Example
 
 `python pose_detection.py AM_sawgrass.mp4`
 
-### Input & Output
+#### Input & Output
 
 Input Video: The script looks for the input video inside the `amateur_swings/` directory.
 
