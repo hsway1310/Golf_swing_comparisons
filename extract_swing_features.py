@@ -41,12 +41,14 @@ def calculate_angle(a, b, c):
 
 # Function to extract swing features from frames
 def extract_swing_features(frame_path_folder, frame_timestamps, fps):
-
+    swing_vid_name = frame_path_folder
     frame_paths = [
         jpg for jpg in os.listdir(frame_path_folder) if jpg.split(".")[-1] == "jpg"
     ]
 
     features = {}
+    features["golf_swing_id"] = swing_vid_name
+
     event_times = {}
 
     for i, frame_path in enumerate(frame_paths):
@@ -180,10 +182,21 @@ if __name__ == "__main__":
         default="test_video.mp4",
         required=True,
     )
+    parser.add_argument(
+        "-t",
+        "--type",
+        help="Overlayed (O) or Raw (R)",
+        default="raw",
+    )
     # Replace with paths to extracted swing frames
     args = parser.parse_args()
+    
+    overlayed_or_raw = args.type
+    frame_type = "overlayed_frames" if args.type[0].lower() == "o" else "raw_frames"
+    
     swing_folder = args.path
-    frame_path_folder = f"{swing_folder}/frames"
+    frame_path_folder = f"{swing_folder}/{frame_type}"
+    
 
     frame_timestamps_path = f"{frame_path_folder}/event_frames.csv"
     with open(frame_timestamps_path, "r") as file:

@@ -1,49 +1,52 @@
-import os
-import mediapipe as mp
-from mediapipe import solutions
-from mediapipe.framework.formats import landmark_pb2
-from mediapipe.tasks import python
-from mediapipe.tasks.python import vision
 import cv2
-mp_drawing = mp.solutions.drawing_utils
+import mediapipe as mp
+
+VIDEO_FILE = "AM_sawgrass.mp4"
+
+# Initialize MediaPipe Pose model
 mp_pose = mp.solutions.pose
+mp_drawing = mp.solutions.drawing_utils
+pose = mp_pose.Pose()
 
-cap = cv2.VideoCapture('/Users/haaris/Desktop/python/Golf_swing_comparisons/swings/MJR_range.mp4')
+# Open input video
+input_video_path = f"amateur_swings/{VIDEO_FILE}"  # Change this to your video file
+swing_id = input_video_path.split("/")[-1].split(".")[0]
+cap = cv2.VideoCapture(input_video_path)
 
-## Setup mediapipe instance
-with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as pose:
-    while cap.isOpened():
-        ret, frame = cap.read()
-        
-        # Recolor image to RGB
-        image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-        image.flags.writeable = False
-      
-        # Make detection
-        results = pose.process(image)
+# Get video properties
+frame_width = int(cap.get(3))
+frame_height = int(cap.get(4))
+fps = int(cap.get(cv2.CAP_PROP_FPS))
+
+# Define output video writer
+output_video_path = f"processed_swings/{swing_id}/{swing_id}_overlayed.mp4"
+fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+out = cv2.VideoWriter(output_video_path, fourcc, fps, (frame_width, frame_height))
+
+while cap.isOpened():
+    ret, frame = cap.read()
+    if not ret:
+        break
     
-        # Recolor back to BGR
-        image.flags.writeable = True
-        image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
-        
-        # Extract landmarks
-        try:
-            landmarks = results.pose_landmarks.landmark
-            print(landmarks)
-        except:
-            pass
-        
-        
-        # Render detections
-        mp_drawing.draw_landmarks(image, results.pose_landmarks, mp_pose.POSE_CONNECTIONS,
-                                mp_drawing.DrawingSpec(color=(245,117,66), thickness=2, circle_radius=2), 
-                                mp_drawing.DrawingSpec(color=(245,66,230), thickness=2, circle_radius=2) 
-                                 )               
-        
-        cv2.imshow('Mediapipe Feed', image)
+    # Convert frame to RGB (MediaPipe requires RGB format)
+    rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+    
+    # Process frame with MediaPipe Pose
+    results = pose.process(rgb_frame)
+    
+    # Draw landmarks if detected
+    if results.pose_landmarks:
+        mp_drawing.draw_landmarks(frame, results.pose_landmarks, mp_pose.POSE_CONNECTIONS)
+    
+    # Write frame to output video
+    out.write(frame)
+    
+    # Display the frame (optional)
+    cv2.imshow("Golf Swing Pose Detection", frame)
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
 
-        if cv2.waitKey(10) & 0xFF == ord('q'):
-            break
-
-    cap.release()
-    cv2.destroyAllWindows()
+# Release resources
+cap.release()
+out.release()
+cv2.destroyAllWindows()
