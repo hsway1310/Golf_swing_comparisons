@@ -1,5 +1,7 @@
 # Golf Swing Analyser - Haaris sohoye
 
+Full demo of Golf Swing Comparison Application Demoed on Foundry AIP: [Feel vs Real](https://drive.google.com/file/d/1WnacQs7NpUQBKby2cN7FtH61IjmvbAuA/view?usp=sharing)
+
 ## Overview
 
 Golf Swing Analyser is a tool that processes a video of a golf swing, identifies key swing positions, and compares them to professional golf swings. The tool overlays MediaPipe pose landmarks to assist with comparisons and analysis.
